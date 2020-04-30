@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+<h4>Поиск книг</h4>
+<form action="" method="post" novalidate>
+     {{ search_form.hidden_tag() }}
+    <div style="width: 60%">
+        {{ search_form.book_name(class="form-control") }}<br>
+        {{ search_form.search(type="submit", class="btn btn-primary") }}
+    </div><br>
+    <h6 style="color:#A5A5A5">{{ message_search }}</h6>
+</form>
+{% endblock %}

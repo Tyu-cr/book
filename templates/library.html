@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+{% if lst == [] %}
+    <h3>В вашей библиотеке ещё нет книг</h3>
+{% else %}
+    {% for i in lst %}
+        <div style="background-color: #CCD1D1; padding: 20px; margin-top: 20px">
+            <h3>{{ i[0] }}</h3>
+                <h5 style="display: inline">{{ i[1] }}</h5>
+            <h5 style="display: inline">{{ i[2] }}</h5><br><br>
+            {% if i[3] != None  %}
+                <img src={{ i[3] }}><br><br>
+            {% else %}
+                <p>Обложки нет</p><br><br>
+            {% endif %}
+            {% if i[4] != None  %}
+                <p>{{ i[4] }}</p>
+            {% else %}
+            {% endif %}
+            <p>Язык - {{ i[5] }}</p>
+            {% if i[6] != None  %}
+                <div>Кол-во страниц - {{ i[6] }}</div><br>
+            {% else %}
+            {% endif %}
+            <a href="/add_hist/{{ i[0] }}/{{ i[1] }}/{{ i[7][29:] }}" class="btn btn-success">Читать</a>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}
