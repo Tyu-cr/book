@@ -31,7 +31,6 @@ pymorphy2-dicts==2.4.393442.3710985
 pymorphy2-dicts-ru==2.4.404381.4453942
 PyQt5==5.13.0
 PyQt5-sip==4.19.19
-pyqt5-tools==5.13.0.1.5
 python-dotenv==0.10.3
 python-pptx==0.6.17
 pywin32-ctypes==0.2.0
