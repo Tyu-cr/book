@@ -19,7 +19,7 @@ greenlet==0.4.15
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.11.1
-lxml==4.3.2
+lxml==4.6.3
 MarkupSafe==1.1.1
 pefile==2019.4.18
 Pillow==6.1.0
