@@ -1,13 +1,13 @@
-import sqlalchemy
+from sqlalchemy import Column, Integer, String
 
-from .db_session import SqlAlchemyBase
+from db_session import SqlAlchemyBase
 
 
 class History(SqlAlchemyBase):
     __tablename__ = 'history'
 
-    key = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
-    id = sqlalchemy.Column(sqlalchemy.String)
-    title = sqlalchemy.Column(sqlalchemy.String)
-    authors = sqlalchemy.Column(sqlalchemy.String)
-    time = sqlalchemy.Column(sqlalchemy.String)
+    key = Column(Integer, primary_key=True, autoincrement=True)
+    id = Column(String)
+    title = Column(String)
+    authors = Column(String)
+    time = Column(String)
