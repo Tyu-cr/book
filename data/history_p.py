@@ -1,13 +1,18 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime
 
 from db_session import SqlAlchemyBase
 
 
 class History(SqlAlchemyBase):
-    __tablename__ = 'history'
+    """
+    Represent history of search in the database.
+    """
+    __tablename__: str = 'history'
 
-    key = Column(Integer, primary_key=True, autoincrement=True)
-    id = Column(String)
-    title = Column(String)
-    authors = Column(String)
-    time = Column(String)
+    key: Column = Column(Integer, primary_key=True, autoincrement=True)
+    # TODO: id: Column = Column(String) ???
+    user_id: Column = Column(Integer)
+    title: Column = Column(String)
+    authors: Column = Column(String)
+    # TODO: time: Column = Column(String) ???
+    time: Column = Column(DateTime)
