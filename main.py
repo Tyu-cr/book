@@ -1,13 +1,15 @@
-from flask_login import LoginManager, logout_user, login_user, login_required, current_user
-from data import db_session
-from data import users, books, history_p
+import datetime
+
 from flask import Flask, render_template, redirect
+from flask_login import LoginManager, logout_user, login_user, login_required, current_user
 from flask_wtf import FlaskForm
+from requests import get
 from wtforms import PasswordField, SubmitField, BooleanField, StringField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import DataRequired
-from requests import get
-import datetime
+
+from data import db_session
+from data import users, books, history_p
 
 KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'
 GLOBAL_JSON = None
