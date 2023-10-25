@@ -3,7 +3,7 @@ from .db_session import SqlAlchemyBase
 
 
 class History(SqlAlchemyBase):
-    __tablename__ = "history"
+    __tablename__ = 'history'
 
     key = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     id = sqlalchemy.Column(sqlalchemy.String)

@@ -1,35 +1,35 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
 <br>
-{% set totalItems = json["totalItems"] %}
+{% set totalItems = json['totalItems'] %}
 {% set flag = true %}
 {% if totalItems == 0 %}
     <h3>Извините, но мы ничего не нашли.</h3>
 {% else %}
-    {% for i in json["items"] %}
-        <div style="background-color: #CCD1D1; padding: 20px; margin-top: 20px">
-            <h3>{{ i["volumeInfo"]["title"] }}</h3>
-            {% for j in i["volumeInfo"]["authors"] %}
-                <h5 style="display: inline">{{ j }}</h5>
+    {% for i in json['items'] %}
+        <div style='background-color: #CCD1D1; padding: 20px; margin-top: 20px'>
+            <h3>{{ i['volumeInfo']['title'] }}</h3>
+            {% for j in i['volumeInfo']['authors'] %}
+                <h5 style='display: inline'>{{ j }}</h5>
             {% endfor %}
-            <h5 style="display: inline">{{ i["volumeInfo"]["publishedDate"] }}</h5><br><br>
-            {% for i2 in i["volumeInfo"] %}
-                {% if i2 == "imageLinks" %}
-                    <img src={{ i["volumeInfo"]["imageLinks"]["thumbnail"] }}><br><br>
+            <h5 style='display: inline'>{{ i['volumeInfo']['publishedDate'] }}</h5><br><br>
+            {% for i2 in i['volumeInfo'] %}
+                {% if i2 == 'imageLinks' %}
+                    <img src={{ i['volumeInfo']['imageLinks']['thumbnail'] }}><br><br>
                     {% set a = false %}
                 {% endif %}
             {% endfor %}
             {% if a == false %}
                 <p>Обложки нет</p><br><br>
             {% endif %}
-            <p>{{ i["volumeInfo"]["description"] }}</p>
-            <p>Язык - {{ i["volumeInfo"]["language"] }}</p>
-            {% if i["volumeInfo"]["pageCount"] != null  %}
-                <div>Кол-во страниц - {{ i["volumeInfo"]["pageCount"] }}</div><br>
+            <p>{{ i['volumeInfo']['description'] }}</p>
+            <p>Язык - {{ i['volumeInfo']['language'] }}</p>
+            {% if i['volumeInfo']['pageCount'] != null  %}
+                <div>Кол-во страниц - {{ i['volumeInfo']['pageCount'] }}</div><br>
             {% else %}
             {% endif %}
-            <a id={{ loop.index - 1 }} href="/{{ request }}/{{ loop.index - 1 }}" class="btn btn-success">Добавить в библиотеку</a>
+            <a id={{ loop.index - 1 }} href='/{{ request }}/{{ loop.index - 1 }}' class='btn btn-success'>Добавить в библиотеку</a>
         </div>
     {% endfor %}
 {% endif %}

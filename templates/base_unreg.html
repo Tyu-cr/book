@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href={{url_for('static', filename='css/style.css')}} />
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'
+          integrity='sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh'
+          crossorigin='anonymous'>
+    <link rel='stylesheet' type='text/css' href={{url_for('static', filename='css/style.css')}} />
     <title>{{title}}</title>
 
 
@@ -59,7 +59,7 @@ div.disabled {
 }
 
 .row:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
@@ -76,45 +76,45 @@ header {
     <header>
         <h1>Книги</h1>
     </header>
-    <div class="top">
-        <a href="/">На главную</a>
-        <a href="/search">Поиск книг</a>
-        <a href="/history">История</a>
-        <a href="/user">Пользователи</a>
+    <div class='top'>
+        <a href='/'>На главную</a>
+        <a href='/search'>Поиск книг</a>
+        <a href='/history'>История</a>
+        <a href='/user'>Пользователи</a>
         {% if current_user.is_authenticated %}
-            <a style="float: right;background-color: #666">{{ current_user.login }}</a>
+            <a style='float: right;background-color: #666'>{{ current_user.login }}</a>
         {% else %}
-            <a style="float: right;background-color: #666">Anon</a>
+            <a style='float: right;background-color: #666'>Anon</a>
         {% endif %}
     </div>
-    <div class="row">
-        <div class="login">
-            <div style="padding: 20px; margin-top: 20px; background-color: #CCD1D1">
+    <div class='row'>
+        <div class='login'>
+            <div style='padding: 20px; margin-top: 20px; background-color: #CCD1D1'>
                     <h3>Авторизация</h3>
                     <p>
-                        <form action="" method="post">
+                        <form action='' method='post'>
                         {{ login_form.hidden_tag() }}
                         <p>
                             <h5>{{ login_form.email.label }}</h5>
-                            {{ login_form.email(class="form-control", type="email") }}<br>
+                            {{ login_form.email(class='form-control', type='email') }}<br>
                             {% for error in login_form.email.errors %}
-                                <div class="alert alert-danger" role="alert">
+                                <div class='alert alert-danger' role='alert'>
                                     {{ error }}
                                 </div>
                             {% endfor %}
                        </p>
                        <p>
                            <h5>{{ login_form.password.label }}</h5>
-                           {{ login_form.password(class="form-control", type="password") }}<br>
+                           {{ login_form.password(class='form-control', type='password') }}<br>
                            {% for error in login_form.password.errors %}
-                           <div class="alert alert-danger" role="alert">
+                           <div class='alert alert-danger' role='alert'>
                                {{ error }}
                            </div>
                            {% endfor %}
                        </p>
                        <p>{{ login_form.remember_me() }} {{ login_form.remember_me.label }}</p>
-                       <p>{{ login_form.submit(type="submit", class="btn btn-success") }}
-                       <a class="btn btn-primary" href="/register">Зарегистрироваться</a></p>
+                       <p>{{ login_form.submit(type='submit', class='btn btn-success') }}
+                       <a class='btn btn-primary' href='/register'>Зарегистрироваться</a></p>
                        <div>{{ message }}</div>
                        </form>
                     </p>
