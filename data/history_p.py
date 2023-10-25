@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from sqlalchemy import Column, Integer, String, DateTime
 
 from db_session import SqlAlchemyBase
@@ -15,4 +17,4 @@ class History(SqlAlchemyBase):
     title: Column = Column(String)
     authors: Column = Column(String)
     # TODO: time: Column = Column(String) ???
-    time: Column = Column(DateTime)
+    time: Column = Column(DateTime, default=datetime.now)
