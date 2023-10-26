@@ -1,48 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <br>
-  {% if lst != [] %}
-    <h3>История просмотров</h4>
-    {% for i in lst %}
-        <table width='75%'>
-        <br>
-            <tr>
-                <th width='30%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Название
-                    </nav>
-                </th>
-                <th width='22%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Авторы
-                    </nav>
-            	</th>
-                <th width='23%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Время
-                    </nav>
-       	        </th>
-            </tr>
-            <tr>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[0] }}
-                    </nav>
-                </td>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[1] }}
-                    </nav>
-                </td>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[2] }}
-                    </nav>
-                </td>
-            </tr>
+<br>
+{% if lst != [] %}
+<h3>История просмотров</h3>
+{% for i in lst %}
+<table width='75%'>
+    <br>
+    <tr>
+        <th width='30%'>
+            <nav class='navbar navbar-light bg-light'>
+                Название
+            </nav>
+        </th>
+        <th width='22%'>
+            <nav class='navbar navbar-light bg-light'>
+                Авторы
+            </nav>
+        </th>
+        <th width='23%'>
+            <nav class='navbar navbar-light bg-light'>
+                Время
+            </nav>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[0] }}
+            </nav>
+        </td>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[1] }}
+            </nav>
+        </td>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[2] }}
+            </nav>
+        </td>
+    </tr>
     {% endfor %}
-  {% else %}
+    {% else %}
     <h3>История отсутствует</h3>
-  {% endif %}
-{% endblock %}
+    {% endif %}
+    {% endblock %}
