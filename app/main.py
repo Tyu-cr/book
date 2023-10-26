@@ -5,7 +5,9 @@ from flask_login import LoginManager, logout_user, login_user, login_required, c
 from requests import get
 
 from app.db import db_session
-from app.db.models import users, read_history, books
+from app.db.models.books import Books
+from app.db.models.read_history import History
+from app.db.models.user import User
 from app.forms.forms import LoginForm, RegisterForm, Search
 
 # TODO: add to config
@@ -22,7 +24,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     session = db_session.create_session()
-    return session.query(users.User).get(user_id)
+    return session.query(User).get(user_id)
 
 
 @app.route('/logout')
@@ -46,7 +48,7 @@ def register():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     lst = []
-    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
+    for i in session.query(Books).filter(Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     if form.validate_on_submit():
         if form.password.data != form.rep_password.data:
@@ -54,10 +56,10 @@ def register():
                                    message_reg='Пароли не совпадают`')
         db_session.global_init('app/db/books.sqlite')
         session = db_session.create_session()
-        if session.query(users.User).filter(users.User.email == form.email.data).first():
+        if session.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html', title='Регистрация', form=form, login_form=login_form,
                                    message_reg='Такой пользователь уже есть')
-        user = users.User()
+        user = User()
         user.login = form.login.data
         user.email = str(form.email.data)
         user.set_password(form.password.data)
@@ -66,7 +68,7 @@ def register():
         return render_template('library.html', title='Главная', form=form, login_form=login_form,
                                message='Регистрация прошла успешно', lst=lst)
     if login_form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == login_form.email.data).first()
+        user = session.query(User).filter(User.email == login_form.email.data).first()
         if user and user.check_password(login_form.password.data):
             login_user(user, remember=login_form.remember_me.data)
             GLOBAL_LOGIN = user
@@ -88,11 +90,11 @@ def main():
         GLOBAL_LOGIN = current_user.get_id()
     except Exception:
         GLOBAL_LOGIN = None
-    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
+    for i in session.query(Books).filter(Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     if GLOBAL_LOGIN is None:
         if form.validate_on_submit():
-            user = session.query(users.User).filter(users.User.email == form.email.data).first()
+            user = session.query(User).filter(User.email == form.email.data).first()
             if user and user.check_password(form.password.data):
                 login_user(user, remember=form.remember_me.data)
                 GLOBAL_LOGIN = user
@@ -114,7 +116,7 @@ def search():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
@@ -143,7 +145,7 @@ def books_search():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
@@ -164,7 +166,7 @@ def add(request, id2):
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
@@ -175,7 +177,7 @@ def add(request, id2):
                                message_search='Для добавления книги нужно войти в аккаунт')
     books_json = get('https://www.googleapis.com/books/v1/volumes?q={}&key={}'.format
                      (request, KEY)).json()['items'][int(id2)]
-    book = books.Books()
+    book = Books()
     book.user_id = GLOBAL_LOGIN
     book.title = books_json['volumeInfo']['title']
     try:
@@ -218,14 +220,14 @@ def library():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
             return redirect('library')
         return render_template('library.html', title='Библиотека', message='Неправильный логин или пароль',
                                login_form=form)
-    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
+    for i in session.query(Books).filter(Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     return render_template('library.html', title='Библиотека', login_form=form, lst=lst)
 
@@ -243,13 +245,13 @@ def user():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
         return render_template('user.html', title='Пользователи', message='Неправильный логин или пароль',
                                login_form=form, global_login=int(GLOBAL_LOGIN))
-    for i in session.query(users.User):
+    for i in session.query(User):
         a.append(i.id)
         a.append(i.login)
         a.append(i.email)
@@ -276,14 +278,14 @@ def history():
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
         return render_template('history.html', title='История', message='Неправильный логин или пароль',
                                login_form=form, lst=lst2)
     try:
-        for i in session.query(read_history.History).filter(read_history.History.user_id == GLOBAL_LOGIN):
+        for i in session.query(History).filter(History.user_id == GLOBAL_LOGIN):
             a.append(i.title)
             a.append(i.authors)
             a.append(i.time)
@@ -304,7 +306,7 @@ def add_hist(title, authors, href):
     db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
-        user = session.query(users.User).filter(users.User.email == form.email.data).first()
+        user = session.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember_me.data)
             GLOBAL_LOGIN = user
@@ -312,7 +314,7 @@ def add_hist(title, authors, href):
                                login_form=form, search_form=search_form)
     if GLOBAL_LOGIN is None:
         return render_template('search.html', title='Поиск книг', login_form=form, search_form=search_form)
-    hist = read_history.History()
+    hist = History()
     hist.user_id = GLOBAL_LOGIN
     hist.title = title
     try:
