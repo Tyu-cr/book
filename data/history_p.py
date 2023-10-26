@@ -2,7 +2,7 @@ import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
 
-from db_session import SqlAlchemyBase
+from .db_session import SqlAlchemyBase
 
 
 class History(SqlAlchemyBase):

@@ -1,6 +1,6 @@
 from sqlalchemy import String, Column, Integer, DateTime
 
-from db_session import SqlAlchemyBase
+from .db_session import SqlAlchemyBase
 
 
 class Books(SqlAlchemyBase):
