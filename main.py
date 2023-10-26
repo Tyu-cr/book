@@ -5,12 +5,13 @@ from flask_login import LoginManager, logout_user, login_user, login_required, c
 from flask_wtf import FlaskForm
 from requests import get
 from wtforms import PasswordField, SubmitField, BooleanField, StringField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields import EmailField
 from wtforms.validators import DataRequired
 
 from data import db_session
 from data import users, books, history_p
 
+# TODO: add to config
 KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'
 GLOBAL_JSON = None
 GLOBAL_REQUEST = None
@@ -68,7 +69,7 @@ def register():
     db_session.global_init('db/books.sqlite')
     session = db_session.create_session()
     lst = []
-    for i in session.query(books.Books).filter(books.Books.login == GLOBAL_LOGIN):
+    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     if form.validate_on_submit():
         if form.password.data != form.rep_password.data:
@@ -109,7 +110,7 @@ def main():
         GLOBAL_LOGIN = current_user.get_id()
     except Exception:
         GLOBAL_LOGIN = None
-    for i in session.query(books.Books).filter(books.Books.login == GLOBAL_LOGIN):
+    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     if GLOBAL_LOGIN is None:
         if form.validate_on_submit():
@@ -197,7 +198,7 @@ def add(request, id2):
     books_json = get('https://www.googleapis.com/books/v1/volumes?q={}&key={}'.format
                      (request, KEY)).json()['items'][int(id2)]
     book = books.Books()
-    book.login = GLOBAL_LOGIN
+    book.user_id = GLOBAL_LOGIN
     book.title = books_json['volumeInfo']['title']
     try:
         book.authors = ', '.join(books_json['volumeInfo']['authors'])
@@ -246,7 +247,7 @@ def library():
             return redirect('library')
         return render_template('library.html', title='Библиотека', message='Неправильный логин или пароль',
                                login_form=form)
-    for i in session.query(books.Books).filter(books.Books.login == GLOBAL_LOGIN):
+    for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
         lst.append([i.title, i.authors, i.date, i.image, i.description, i.language, i.count, i.href])
     return render_template('library.html', title='Библиотека', login_form=form, lst=lst)
 
@@ -304,7 +305,7 @@ def history():
         return render_template('history.html', title='История', message='Неправильный логин или пароль',
                                login_form=form, lst=lst2)
     try:
-        for i in session.query(history_p.History).filter(history_p.History.id == GLOBAL_LOGIN):
+        for i in session.query(history_p.History).filter(history_p.History.user_id == GLOBAL_LOGIN):
             a.append(i.title)
             a.append(i.authors)
             a.append(i.time)
@@ -334,7 +335,7 @@ def add_hist(title, authors, href):
     if GLOBAL_LOGIN is None:
         return render_template('search.html', title='Поиск книг', login_form=form, search_form=search_form)
     hist = history_p.History()
-    hist.id = GLOBAL_LOGIN
+    hist.user_id = GLOBAL_LOGIN
     hist.title = title
     try:
         hist.authors = authors

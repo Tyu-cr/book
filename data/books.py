@@ -14,7 +14,7 @@ class Books(SqlAlchemyBase):
     user_id: Column = Column(Integer)
     title: Column = Column(String(255))
     authors: Column = Column(String(255))
-    date: Column = Column(DateTime)
+    date: Column = Column(String(20))
     image: Column = Column(String(255))
     description: Column = Column(String(2000))
     language: Column = Column(String(20))
