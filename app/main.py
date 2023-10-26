@@ -103,7 +103,8 @@ def register():
 def main():
     global GLOBAL_LOGIN
     form = LoginForm()
-    db_session.global_init('db/books.sqlite')
+    # TODO: move to config
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     lst = []
     try:
