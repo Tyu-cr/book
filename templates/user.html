@@ -1,58 +1,58 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <br>
-  {% if global_login == 1 %}
-    <h3>Пользователи</h4>
-    {% for i in lst %}
-        <table width='75%'>
-        <br>
-            <tr>
-                <th width='10%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        id
-                    </nav>
-                </th>
-                <th width='20%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Логин
-                    </nav>
-                </th>
-                <th width='20%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Email
-                    </nav>
-            	</th>
-                <th width='25%'>
-                    <nav class='navbar navbar-light bg-light'>
-                        Дата регистрации
-                    </nav>
-       	        </th>
-            </tr>
-            <tr>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[0] }}
-                    </nav>
-                </td>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[1] }}
-                    </nav>
-                </td>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[2] }}
-                    </nav>
-                </td>
-                <td>
-                    <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
-                        {{ i[3] }}
-                    </nav>
-                </td>
-            </tr>
+<br>
+{% if global_login == 1 %}
+<h3>Пользователи</h3>
+{% for i in lst %}
+<table width='75%'>
+    <br>
+    <tr>
+        <th width='10%'>
+            <nav class='navbar navbar-light bg-light'>
+                id
+            </nav>
+        </th>
+        <th width='20%'>
+            <nav class='navbar navbar-light bg-light'>
+                Логин
+            </nav>
+        </th>
+        <th width='20%'>
+            <nav class='navbar navbar-light bg-light'>
+                Email
+            </nav>
+        </th>
+        <th width='25%'>
+            <nav class='navbar navbar-light bg-light'>
+                Дата регистрации
+            </nav>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[0] }}
+            </nav>
+        </td>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[1] }}
+            </nav>
+        </td>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[2] }}
+            </nav>
+        </td>
+        <td>
+            <nav class='navbar navbar-light' style='background-color: #e3f2fd;'>
+                {{ i[3] }}
+            </nav>
+        </td>
+    </tr>
     {% endfor %}
-  {% else %}
+    {% else %}
     <h3>Недостаточно прав для доступа</h3>
-  {% endif %}
-{% endblock %}
+    {% endif %}
+    {% endblock %}
