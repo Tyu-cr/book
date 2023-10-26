@@ -9,7 +9,7 @@ from wtforms.fields import EmailField
 from wtforms.validators import DataRequired
 
 from data import db_session
-from data import users, books, history_p
+from data import users, books, read_history
 
 # TODO: add to config
 KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'
@@ -306,7 +306,7 @@ def history():
         return render_template('history.html', title='История', message='Неправильный логин или пароль',
                                login_form=form, lst=lst2)
     try:
-        for i in session.query(history_p.History).filter(history_p.History.user_id == GLOBAL_LOGIN):
+        for i in session.query(read_history.History).filter(read_history.History.user_id == GLOBAL_LOGIN):
             a.append(i.title)
             a.append(i.authors)
             a.append(i.time)
@@ -335,7 +335,7 @@ def add_hist(title, authors, href):
                                login_form=form, search_form=search_form)
     if GLOBAL_LOGIN is None:
         return render_template('search.html', title='Поиск книг', login_form=form, search_form=search_form)
-    hist = history_p.History()
+    hist = read_history.History()
     hist.user_id = GLOBAL_LOGIN
     hist.title = title
     try:
