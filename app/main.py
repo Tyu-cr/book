@@ -2,14 +2,11 @@ import datetime
 
 from flask import Flask, render_template, redirect
 from flask_login import LoginManager, logout_user, login_user, login_required, current_user
-from flask_wtf import FlaskForm
 from requests import get
-from wtforms import PasswordField, SubmitField, BooleanField, StringField
-from wtforms.fields import EmailField
-from wtforms.validators import DataRequired
 
 from app.db import db_session
 from app.db.models import users, read_history, books
+from app.forms.forms import LoginForm, RegisterForm, Search
 
 # TODO: add to config
 KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'
@@ -35,26 +32,6 @@ def logout():
     logout_user()
     GLOBAL_LOGIN = None
     return redirect('/')
-
-
-class LoginForm(FlaskForm):
-    email = EmailField('Почта', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    remember_me = BooleanField('Запомнить меня')
-    submit = SubmitField('Войти')
-
-
-class RegisterForm(FlaskForm):
-    login = StringField('Логин', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired()])
-    password = PasswordField('Пароль', validators=[DataRequired()])
-    rep_password = PasswordField('Повтор пароля', validators=[DataRequired()])
-    submit = SubmitField('Зарегистироваться')
-
-
-class Search(FlaskForm):
-    book_name = StringField('Поиск книг', description='Поиск книг')
-    search = SubmitField('Искать')
 
 
 @app.route('/register', methods=['GET', 'POST'])
