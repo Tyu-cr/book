@@ -8,8 +8,8 @@ from wtforms import PasswordField, SubmitField, BooleanField, StringField
 from wtforms.fields import EmailField
 from wtforms.validators import DataRequired
 
-from data import db_session
-from data import users, books, read_history
+from app.db import db_session
+from app.db.models import users, read_history, books
 
 # TODO: add to config
 KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'

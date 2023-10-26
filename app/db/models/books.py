@@ -1,6 +1,6 @@
-from sqlalchemy import String, Column, Integer, DateTime
+from sqlalchemy import String, Column, Integer
 
-from .db_session import SqlAlchemyBase
+from app.db.db_session import SqlAlchemyBase
 
 
 class Books(SqlAlchemyBase):
@@ -10,7 +10,6 @@ class Books(SqlAlchemyBase):
     __tablename__: str = 'books'
 
     id: Column = Column(Integer, primary_key=True, autoincrement=True)
-    # TODO: login = Column(String(50))
     user_id: Column = Column(Integer)
     title: Column = Column(String(255))
     authors: Column = Column(String(255))
