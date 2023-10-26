@@ -8,37 +8,37 @@
         {{ form.login.label }}<br>
         {{ form.login(class='form-control') }}<br>
         {% for error in form.login.errors %}
-            <div class='alert alert-danger' role='alert'>
-                {{ error }}
-            </div>  
-        {% endfor %}
+    <div class='alert alert-danger' role='alert'>
+        {{ error }}
+    </div>
+    {% endfor %}
     </p>
     <p>
         {{ form.email.label }}<br>
         {{ form.email(class='form-control', type='email') }}<br>
         {% for error in form.email.errors %}
-            <div class='alert alert-danger' role='alert'>
-                {{ error }}
-            </div>  
-        {% endfor %}
+    <div class='alert alert-danger' role='alert'>
+        {{ error }}
+    </div>
+    {% endfor %}
     </p>
     <p>
         {{ form.password.label }}<br>
         {{ form.password(class='form-control', type='password') }}<br>
         {% for error in form.password.errors %}
-            <div class='alert alert-danger' role='alert'>
-                {{ error }}
-            </div>
-        {% endfor %}
+    <div class='alert alert-danger' role='alert'>
+        {{ error }}
+    </div>
+    {% endfor %}
     </p>
     <p>
         {{ form.rep_password.label }}<br>
         {{ form.rep_password(class='form-control', type='password') }}<br>
         {% for error in form.rep_password.errors %}
-            <div class='alert alert-danger' role='alert'>
-                {{ error }}
-            </div>
-        {% endfor %}
+    <div class='alert alert-danger' role='alert'>
+        {{ error }}
+    </div>
+    {% endfor %}
     </p>
     <p>{{ form.submit(type='submit', class='btn btn-primary') }}</p>
     <div>{{ message_reg }}</div>
