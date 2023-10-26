@@ -66,7 +66,7 @@ def register():
         GLOBAL_LOGIN = current_user.get_id()
     except Exception:
         GLOBAL_LOGIN = None
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     lst = []
     for i in session.query(books.Books).filter(books.Books.user_id == GLOBAL_LOGIN):
@@ -74,8 +74,8 @@ def register():
     if form.validate_on_submit():
         if form.password.data != form.rep_password.data:
             return render_template('register.html', title='Регистрация', form=form, login_form=login_form,
-                                   message_reg='Пароли не совпадают')
-        db_session.global_init('db/books.sqlite')
+                                   message_reg='Пароли не совпадают`')
+        db_session.global_init('app/db/books.sqlite')
         session = db_session.create_session()
         if session.query(users.User).filter(users.User.email == form.email.data).first():
             return render_template('register.html', title='Регистрация', form=form, login_form=login_form,
@@ -134,7 +134,7 @@ def search():
     global GLOBAL_LOGIN
     form = LoginForm()
     search_form = Search()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -163,7 +163,7 @@ def books_search():
     global GLOBAL_REQUEST
     global GLOBAL_LOGIN
     form = LoginForm()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -184,7 +184,7 @@ def add(request, id2):
     global GLOBAL_LOGIN
     form = LoginForm()
     search_form = Search()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -238,7 +238,7 @@ def library():
     global GLOBAL_LOGIN
     lst = []
     form = LoginForm()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -263,7 +263,7 @@ def user():
     a = []
     lst2 = []
     form = LoginForm()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -296,7 +296,7 @@ def history():
     a = []
     lst2 = []
     form = LoginForm()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
@@ -324,7 +324,7 @@ def add_hist(title, authors, href):
     global GLOBAL_LOGIN
     form = LoginForm()
     search_form = Search()
-    db_session.global_init('db/books.sqlite')
+    db_session.global_init('app/db/books.sqlite')
     session = db_session.create_session()
     if form.validate_on_submit():
         user = session.query(users.User).filter(users.User.email == form.email.data).first()
