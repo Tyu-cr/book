@@ -5,7 +5,7 @@
 {% set totalItems = json['totalItems'] %}
 {% set flag = true %}
 {% if totalItems == 0 %}
-<h3>Извините, но мы ничего не нашли.</h3>
+<h3>I'm sorry, but I didn't find anything.</h3>
 {% else %}
 {% for i in json['items'] %}
 <div style='background-color: #CCD1D1; padding: 20px; margin-top: 20px'>
@@ -21,17 +21,16 @@
     {% endif %}
     {% endfor %}
     {% if a == false %}
-    <p>Обложки нет</p><br><br>
+    <p>No cover</p><br><br>
     {% endif %}
     <p>{{ i['volumeInfo']['description'] }}</p>
-    <p>Язык - {{ i['volumeInfo']['language'] }}</p>
+    <p>Language - {{ i['volumeInfo']['language'] }}</p>
     {% if i['volumeInfo']['pageCount'] != null %}
-    <div>Кол-во страниц - {{ i['volumeInfo']['pageCount'] }}</div>
+    <div>Number of pages - {{ i['volumeInfo']['pageCount'] }}</div>
     <br>
     {% else %}
     {% endif %}
-    <a id={{ loop.index - 1 }} href='/{{ request }}/{{ loop.index - 1 }}' class='btn btn-success'>Добавить в
-        библиотеку</a>
+    <a id={{ loop.index - 1 }} href='/{{ request }}/{{ loop.index - 1 }}' class='btn btn-success'>Add to library</a>
 </div>
 {% endfor %}
 {% endif %}

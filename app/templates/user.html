@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 {% if global_login == 1 %}
-<h3>Пользователи</h3>
+<h3>Users</h3>
 {% for i in lst %}
 <table width='75%'>
     <br>
@@ -15,7 +15,7 @@
         </th>
         <th width='20%'>
             <nav class='navbar navbar-light bg-light'>
-                Логин
+                Login
             </nav>
         </th>
         <th width='20%'>
@@ -25,7 +25,7 @@
         </th>
         <th width='25%'>
             <nav class='navbar navbar-light bg-light'>
-                Дата регистрации
+                Date of registration
             </nav>
         </th>
     </tr>
@@ -53,6 +53,6 @@
     </tr>
     {% endfor %}
     {% else %}
-    <h3>Недостаточно прав для доступа</h3>
+    <h3>Insufficient access rights</h3>
     {% endif %}
     {% endblock %}

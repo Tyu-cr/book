@@ -3,24 +3,24 @@
 {% block content %}
 <br>
 {% if lst != [] %}
-<h3>История просмотров</h3>
+    <h3>View history</h3>
 {% for i in lst %}
 <table width='75%'>
     <br>
     <tr>
         <th width='30%'>
             <nav class='navbar navbar-light bg-light'>
-                Название
+                Name
             </nav>
         </th>
         <th width='22%'>
             <nav class='navbar navbar-light bg-light'>
-                Авторы
+                Authors
             </nav>
         </th>
         <th width='23%'>
             <nav class='navbar navbar-light bg-light'>
-                Время
+                Time
             </nav>
         </th>
     </tr>
@@ -43,6 +43,6 @@
     </tr>
     {% endfor %}
     {% else %}
-    <h3>История отсутствует</h3>
+    <h3>There's no history</h3>
     {% endif %}
     {% endblock %}
