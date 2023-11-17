@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from app.config import config
 from app.db import db_session
 from app.db.models.user import User
-from blueprints.my_blueprint import my_blueprint
+from app.blueprints.my_blueprint import my_blueprint
 
 app = Flask(__name__)
 app.register_blueprint(my_blueprint)
