@@ -3,3 +3,4 @@ werkzeug==2.3.0
 flask>=3.0.0
 wtforms>=3.1.0
 requests>=2.31.0
+pydantic>=2.4.2
