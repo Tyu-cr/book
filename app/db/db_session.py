@@ -23,7 +23,6 @@ def global_init(db_file: str) -> None:
     if not db_file or not db_file.strip():
         raise Exception('Database file must be specified.')
 
-    # TODO: make it in config
     conn_str = f'sqlite:///{db_file.strip()}?check_same_thread=False'
 
     print(f'Connecting to database: {conn_str}')

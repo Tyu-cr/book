@@ -4,20 +4,23 @@ from flask import Flask, render_template, redirect
 from flask_login import LoginManager, logout_user, login_user, login_required, current_user
 from requests import get
 
+from app.config import config
 from app.db import db_session
 from app.db.models.books import Books
 from app.db.models.read_history import History
 from app.db.models.user import User
 from app.forms.forms import LoginForm, RegisterForm, Search
 
-# TODO: add to config
-KEY = 'AIzaSyDBAFxQBMQ1Kovq62NpmGhW0mIuJSP0hH4'
 GLOBAL_JSON = None
 GLOBAL_REQUEST = None
 GLOBAL_LOGIN = None
-DB_SESSION = 'app/db/books.sqlite'
+LINK_FOR_GOOGLE_API = 'https://www.googleapis.com/books/v1/volumes?q='
+
+GOOGLE_API_KEY = config.google_api_key.get_secret_value()
+DB_SESSION = config.db_session.get_secret_value()
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
+app.config['SECRET_KEY'] = config.secret_key_flask.get_secret_value()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -32,7 +35,6 @@ def load_user(user_id):
 def main():
     global GLOBAL_LOGIN
     login_form = LoginForm()
-    # TODO: move to config
     db_session.global_init(DB_SESSION)
     session = db_session.create_session()
     book_lst = []
@@ -159,7 +161,7 @@ def search():
                                    message_search='Enter the title of the book or author')
         else:
             request = search_form.book_name.data
-            books_json = get(f'https://www.googleapis.com/books/v1/volumes?q={request}&key={KEY}').json()
+            books_json = get(f'{LINK_FOR_GOOGLE_API}{request}&key={GOOGLE_API_KEY}').json()
             GLOBAL_JSON = books_json
             GLOBAL_REQUEST = request
             return redirect('books_search')
@@ -216,7 +218,7 @@ def add(request, id2):
                                login_form=form, search_form=search_form,
                                message_search='You must be logged in to your account to add a book')
 
-    books_json = get(f'https://www.googleapis.com/books/v1/volumes?q={request}&key={KEY}').json()['items'][int(id2)]
+    books_json = get(f'{LINK_FOR_GOOGLE_API}{request}&key={GOOGLE_API_KEY}').json()['items'][int(id2)]
     book = Books()
     book.user_id = GLOBAL_LOGIN
     book.title = books_json['volumeInfo'].get('title')
